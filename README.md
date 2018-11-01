@@ -19,15 +19,6 @@
 # faut remplacer chemin/vers par le chemin complet jusqu'au fichier :)
 # Si vous n'y arrivez pas, utilisez PHPmyAdmin
 
-#Pour récupérer le dépôt github :
-	# installer git s'il n'est pas installé :
-		sudo apt-get install git
- [user@machine:~]$ sudo bash
- [root@machine:~]#  cd /var/www/ 
- [root@machine:/var/www]#  git clone https://github.com/tarikweb/football
- [root@machine:/var/www]#  cd football
- [root@machine:/var/www/football]#  git checkout master
-
 #Pour envoyer ses modifications sur github :
 	#si on veut envoyer les modifs d'un fichier : git add cheminDuFichier
 	#si on veut envoyer toutes ses modifs : git add --all

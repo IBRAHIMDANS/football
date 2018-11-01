@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+<h1> bienvenue sur la page d'accueil</h1>
+<h2> Se connecter </h2>
+
+{% if error %}
+<p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+{% endif %}
+
+{% if user.is_authenticated %}
+Vous êtes connecté, {{ user.username }} !!! {{ user.id }} 
+<form method="post" action="deconnexion">
+    {% csrf_token %}
+    <input type="submit" value="Se deconnecter"/>
+</form>
+{% else %}
+<form method="post" action="">
+  <!-- {% url "GestionEquipe" %} -->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Se connecter" />
+</form>
+{% endif %}
+<!-- <script>
+  var id = {{ user.id}};
+</script> -->
+{% endblock %}
+
+</body>
+</html>

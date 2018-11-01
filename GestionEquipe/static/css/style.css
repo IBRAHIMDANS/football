@@ -1,0 +1,176 @@
+
+body {
+	font-family: Lucida,Calibri,serif;
+	font-size:15px;
+	font-weight: bold;
+	margin:0px;
+	padding:0px;
+	background-image: url("/static/img/");
+	background-repeat : no-repeat;
+	background-size: 100% 100%;
+}
+
+h1 {
+	font-size:40px;
+	text-align:center;
+	color:black;
+}
+header {
+ height: 50px;
+ margin: 0px;
+ text-align:center;
+}
+footer {
+
+	height:40px;
+	padding-top : 10px;
+	text-align:center;
+	background-color:#C5C5c5;
+	border-top:1px solid #AAA;
+	font-weight:bold;
+	}
+table {
+	display:: table;
+	margin:auto;
+	}
+
+.inlineMenu li{
+	display: inline;
+	margin : 2%;
+}
+
+a{
+	text-decoration: none;
+}
+
+a:hover{
+  	text-decoration: none;
+}
+
+
+nav
+{
+	display: inline-block;
+	width:100%;
+	#background-color:green;
+	left:auto;
+
+}
+
+nav li{
+	liste-style-type:none;
+	float:left;
+	}
+
+nav > ul
+{
+	margin:0px;
+	padding:0px;
+	left:auto;
+display: inline-flex;
+	width:100%;
+	padding:0px 30px;
+	}
+nav > ul::after
+{
+	display:block;
+	clear:both;
+}
+nav > ul > li
+{
+	float: left;
+	position:relative;
+}
+nav > ul > li > a
+{
+	padding: 20px 30px;
+	color:#FFF;
+
+}
+nav li
+{
+	list-style-type:none;
+}
+.submenu
+{
+	display:none;
+}
+
+nav a
+{
+
+	display: inline-block;
+	text-decoration :none;
+	padding:0px 30px;
+		color:#FFF;
+	text-transform:uppercase;
+	font-size:15px;
+}
+nav li:hover .submenu
+{
+	display:inline-block;
+	position:absolute;
+	top:100%;
+	left:0px;
+	padding:0px;
+	z-index:1000;
+}
+
+.menu-pre:hover
+{
+	border-top: 5px solid #e44d26;
+	background-color: RGBa(228,77,38,0,15);
+}
+.menu-eq:hover
+{
+	border-top: 5px solid #BBB;
+	background-color: RGBa(220,220,220,0,15);
+}
+.menutab:hover
+{
+	border-top: 5px solid #e44d26;
+	background-color: RGBa(228,77,38,0,15);
+}
+.menu-class:hover
+{
+	border-top: 5px solid #e44d26;
+	background-color: RGBa(228,77,38,0,15);
+}
+.menucal:hover
+{
+	border-top: 5px solid #F69;
+	background-color: RGBa(228,77,38,0,15);}
+
+.com { font-size:16px;
+font-family:Tahoma, Geneva, sans-serif;
+color:blue;
+
+ }
+
+#add:hover{
+	cursor : pointer;
+}
+
+#ajouterForm label,  #modifForm label{
+	width: 40%;
+}
+
+#ajouterForm input,  #modifForm input{
+	width:55%;
+}
+
+#composition{
+	text-align: center;
+}
+
+#corps{
+	text-align: center;
+}
+
+#composition{
+	width:50%;
+    margin-left:10%;
+}
+.errorlist {
+    display: none;
+}

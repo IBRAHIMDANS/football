@@ -1,0 +1,253 @@
+﻿-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 06 mars 2018 à 12:55
+-- Version du serveur :  5.6.11
+-- Version de PHP :  5.6.31
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Base de données :  `e4_football`
+--
+CREATE DATABASE IF NOT EXISTS `e4_football` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `e4_football`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `arbitre`
+--
+
+DROP TABLE IF EXISTS `arbitre`;
+CREATE TABLE IF NOT EXISTS `arbitre` (
+  `Id_Arbitre` int(11) NOT NULL AUTO_INCREMENT,
+  `A_Nom` varchar(255) NOT NULL,
+  `A_Prenom` varchar(255) NOT NULL,
+  `A_Mdp` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id_Arbitre`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `arbitre`
+--
+
+INSERT INTO `arbitre` (`Id_Arbitre`, `A_Nom`, `A_Prenom`, `A_Mdp`) VALUES
+(1, 'Todd', 'David', 'JEI23JTQ9RZ'),
+(2, 'Hayden', 'Middleton', 'VOR67HKH9EG'),
+(3, 'Basil', 'Sanders', 'RQB83ADB7EI'),
+(4, 'Warren', 'Clay', 'WNV82NNX8BJ'),
+(5, 'Coby', 'Herman', 'XFA30FEA0OA'),
+(6, 'Kenneth', 'Griffin', 'LQY97OPK8WH'),
+(7, 'Zeus', 'Garrison', 'OYL11WSG7KG'),
+(8, 'Plato', 'Sheppard', 'WPV55GEU4HN'),
+(9, 'Brody', 'Pierce', 'ULS26HGJ6RK'),
+(10, 'Jack', 'Sims', 'ENP93URR7CU'),
+(11, 'Chaney', 'Avila', 'DKA84ETE7UL'),
+(12, 'Cole', 'Ramos', 'WWH13KBC9DD'),
+(13, 'Robert', 'Daniels', 'YWD91JRR3YX'),
+(14, 'Xavier', 'Larsen', 'YRM35GDC3RM'),
+(15, 'Yuli', 'Bennett', 'HYJ17VXL6QT'),
+(16, 'Ryder', 'Bird', 'EER35PRJ1KP'),
+(17, 'Caldwell', 'Simon', 'FRD83SJI5PN'),
+(18, 'Clinton', 'Glass', 'FJS12VAM2MA'),
+(19, 'Justin', 'Leach', 'FOT74EZE5UC'),
+(20, 'Aristotle', 'Case', 'VBO31VNQ3TH');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `entraineur`
+--
+
+DROP TABLE IF EXISTS `entraineur`;
+CREATE TABLE IF NOT EXISTS `entraineur` (
+  `Id_Entraineur` int(11) NOT NULL AUTO_INCREMENT,
+  `E_Nom` varchar(255) NOT NULL,
+  `E_Prenom` varchar(255) NOT NULL,
+  `E_Mdp` varchar(255) NOT NULL,
+  PRIMARY KEY (`Id_Entraineur`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `entraineur`
+--
+
+INSERT INTO `entraineur` (`Id_Entraineur`, `E_Nom`, `E_Prenom`, `E_Mdp`) VALUES
+(1, 'Gerome', 'papa', 'papa'),
+(2, 'Jarod', 'jawad', 'jawad'),
+(3, 'Jean', 'pyti', 'pyti'),
+(4, 'mohamed', 'Said', '0000'),
+(5, 'Gray', 'Leandra', '59082'),
+(6, 'Samson', 'Ferdinand', '25888'),
+(7, 'Samson', 'Lareina', '82471'),
+(8, 'Callum', 'Ivory', '96320'),
+(9, 'Lars', 'Noble', '09628'),
+(10, 'Ryan', 'Serina', '89800');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `equipe`
+--
+
+DROP TABLE IF EXISTS `equipe`;
+CREATE TABLE IF NOT EXISTS `equipe` (
+  `Id_Equipe` int(11) NOT NULL AUTO_INCREMENT,
+  `E_Nom` varchar(255) NOT NULL,
+  `Id_Entraineur` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Equipe`),
+  KEY `Id_Entraineur` (`Id_Entraineur`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `equipe`
+--
+
+INSERT INTO `equipe` (`Id_Equipe`, `E_Nom`, `Id_Entraineur`) VALUES
+(1, 'CA Boulay', 1),
+(2, 'ES Fameck', 4),
+(3, 'UL Rombas', 5),
+(4, 'ES Metz', 6),
+(5, 'FC Yutz', 7),
+(6, 'AS Vagney', 8),
+(7, 'FCB', 3),
+(8, 'FC Toul', 9),
+(9, 'Epinal', 10),
+(10, 'Real', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `joueur`
+--
+
+DROP TABLE IF EXISTS `joueur`;
+CREATE TABLE IF NOT EXISTS `joueur` (
+  `Id_Joueur` int(11) NOT NULL AUTO_INCREMENT,
+  `J_Nom` varchar(255) NOT NULL,
+  `J_Prenom` varchar(255) NOT NULL,
+  `J_Age` int(11) NOT NULL,
+  `J_Taille` int(11) NOT NULL,
+  `J_Poste` varchar(255) NOT NULL,
+  `J_Status` enum('Titulaire','Remplaçant','Réserviste','') NOT NULL,
+  `J_Disponible` tinyint(1) NOT NULL,
+  `J_Position` int(11) NOT NULL,
+  `Id_Equipe` int(11) NOT NULL,
+  `Id_Statistique` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id_Joueur`),
+  KEY `Id_Equipe` (`Id_Equipe`),
+  KEY `Id_Statistique` (`Id_Statistique`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `joueur`
+--
+
+INSERT INTO `joueur` (`Id_Joueur`, `J_Nom`, `J_Prenom`, `J_Age`, `J_Taille`, `J_Poste`, `J_Status`, `J_Disponible`, `J_Position`, `Id_Equipe`, `Id_Statistique`) VALUES
+(1, 'Adam', 'Strickland', 19, 176, 'G', 'Réserviste', 1, 1, 1, 10),
+(2, 'Chancellor', 'Kemp', 22, 29, 'D', 'Réserviste', 0, 5, 1, 6),
+(3, 'Benjamin', 'Lopez', 26, 166, 'G', 'Titulaire', 1, 1, 1, NULL),
+(4, 'Castro', 'Daniel', 23, 156, 'D', 'Titulaire', 1, 5, 1, NULL),
+(5, 'Ingram', 'Branch', 24, 181, 'D', 'Titulaire', 1, 4, 1, NULL),
+(6, 'Rocha', 'Fowler', 26, 200, 'D', 'Remplaçant', 1, 3, 1, NULL),
+(7, 'Dickson', 'Foley', 23, 180, 'D', 'Réserviste', 0, 2, 1, NULL),
+(8, 'Guy', 'Keller', 29, 214, 'A', 'Réserviste', 1, 10, 1, NULL),
+(9, 'Diaz', 'Oneill', 38, 194, 'D', 'Remplaçant', 1, 4, 1, NULL),
+(10, 'Guerra', 'Goodwin', 38, 189, 'G', 'Remplaçant', 1, 1, 1, NULL),
+(11, 'Sweeney', 'Schroeder', 39, 169, 'M', 'Titulaire', 1, 8, 1, NULL),
+(12, 'Whitaker', 'Benton', 26, 171, 'M', 'Titulaire', 1, 6, 1, NULL),
+(13, 'Palmer', 'Sargent', 40, 177, 'D', 'Remplaçant', 1, 4, 1, NULL),
+(14, 'Alvarez', 'Albert', 33, 177, 'G', 'Réserviste', 0, 1, 1, NULL),
+(15, 'Henry', 'Wilkinson', 35, 185, 'M', 'Réserviste', 1, 9, 1, NULL),
+(16, 'Valencia', 'Houston', 24, 210, 'D', 'Réserviste', 0, 2, 1, NULL),
+(17, 'Odonnell', 'Summers', 32, 200, 'A', 'Réserviste', 0, 10, 1, NULL),
+(18, 'Harding', 'Cain', 26, 187, 'A', 'Titulaire', 1, 10, 1, NULL),
+(19, 'Goff', 'Ellis', 37, 205, 'A', 'Titulaire', 1, 11, 1, NULL),
+(20, 'Wagner', 'Gates', 35, 191, 'M', 'Titulaire', 1, 7, 1, NULL),
+(21, 'Marks', 'Schwartz', 34, 178, 'D', 'Titulaire', 1, 2, 1, NULL),
+(22, 'Tanner', 'Nguyen', 40, 171, 'M', 'Titulaire', 1, 8, 1, NULL),
+(23, 'Parks', 'Salazar', 35, 160, 'A', 'Titulaire', 1, 11, 1, NULL),
+(24, 'Richards', 'Estrada', 29, 169, 'A', 'Remplaçant', 1, 11, 1, NULL),
+(25, 'Mendez', 'Pruitt', 26, 207, 'M', 'Remplaçant', 1, 8, 1, NULL),
+(26, 'Benjamin', 'Lopez', 26, 166, 'G', 'Titulaire', 1, 1, 2, NULL),
+(27, 'Castro', 'Daniel', 23, 156, 'D', 'Titulaire', 1, 5, 2, NULL),
+(28, 'Ingram', 'Branch', 24, 181, 'D', 'Titulaire', 1, 4, 2, NULL),
+(29, 'Sweeney', 'Schroeder', 39, 169, 'M', 'Titulaire', 1, 8, 2, NULL),
+(30, 'Whitaker', 'Benton', 26, 171, 'M', 'Titulaire', 1, 6, 2, NULL),
+(31, 'Harding', 'Cain', 26, 187, 'A', 'Titulaire', 1, 10, 2, NULL),
+(32, 'Goff', 'Ellis', 37, 205, 'A', 'Titulaire', 1, 11, 2, NULL),
+(33, 'Wagner', 'Gates', 35, 191, 'M', 'Titulaire', 1, 7, 2, NULL),
+(34, 'Marks', 'Schwartz', 34, 178, 'D', 'Titulaire', 1, 2, 2, NULL),
+(35, 'Tanner', 'Nguyen', 40, 171, 'M', 'Titulaire', 1, 8, 2, NULL),
+(36, 'Parks', 'Salazar', 35, 160, 'A', 'Titulaire', 1, 11, 2, NULL),
+(37, 'Rocha', 'Fowler', 26, 200, 'D', 'Remplaçant', 1, 3, 2, NULL),
+(38, 'Diaz', 'Oneill', 38, 194, 'D', 'Remplaçant', 1, 4, 2, NULL),
+(39, 'Guerra', 'Goodwin', 38, 189, 'G', 'Remplaçant', 1, 1, 2, NULL),
+(40, 'Palmer', 'Sargent', 40, 177, 'D', 'Remplaçant', 1, 4, 2, NULL),
+(41, 'Richards', 'Estrada', 29, 169, 'A', 'Remplaçant', 1, 11, 2, NULL),
+(42, 'Mendez', 'Pruitt', 26, 207, 'M', 'Remplaçant', 1, 8, 2, NULL),
+(43, 'Adam', 'Strickland', 19, 176, 'G', 'Réserviste', 1, 1, 2, NULL),
+(44, 'Chancellor', 'Kemp', 22, 29, 'D', 'Réserviste', 0, 5, 2, NULL),
+(45, 'Dickson', 'Foley', 23, 180, 'D', 'Réserviste', 0, 2, 2, NULL),
+(46, 'Guy', 'Keller', 29, 214, 'A', 'Réserviste', 1, 10, 2, NULL),
+(47, 'Alvarez', 'Albert', 33, 177, 'G', 'Réserviste', 0, 1, 2, NULL),
+(48, 'Henry', 'Wilkinson', 35, 185, 'M', 'Réserviste', 1, 9, 2, NULL),
+(49, 'Valencia', 'Houston', 24, 210, 'D', 'Réserviste', 0, 2, 2, NULL),
+(50, 'Odonnell', 'Summers', 32, 200, 'A', 'Réserviste', 0, 10, 2, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `statistiques`
+--
+
+DROP TABLE IF EXISTS `statistiques`;
+CREATE TABLE IF NOT EXISTS `statistiques` (
+  `Id_Statistique` int(11) NOT NULL AUTO_INCREMENT,
+  `S_But` int(11) NOT NULL,
+  `S_Passe_Decisive` int(11) NOT NULL,
+  `S_Carton_Jaune` int(11) NOT NULL,
+  `S_Carton_Rouge` int(11) NOT NULL,
+  PRIMARY KEY (`Id_Statistique`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `statistiques`
+--
+
+INSERT INTO `statistiques` (`Id_Statistique`, `S_But`, `S_Passe_Decisive`, `S_Carton_Jaune`, `S_Carton_Rouge`) VALUES
+(1, 2, 3, 0, 0),
+(2, 0, 3, 0, 0),
+(3, 5, 3, 0, 0),
+(4, 11, 3, 0, 0),
+(5, 0, 3, 0, 0),
+(6, 0, 3, 0, 0),
+(7, 6, 3, 0, 0),
+(8, 8, 3, 0, 0),
+(9, 0, 3, 0, 0),
+(10, 3, 3, 0, 0),
+(11, 7, 3, 0, 0),
+(12, 2, 3, 0, 2);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `equipe`
+--
+ALTER TABLE `equipe`
+  ADD CONSTRAINT `Equipe_ibfk_1` FOREIGN KEY (`Id_Entraineur`) REFERENCES `entraineur` (`Id_Entraineur`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `joueur`
+--
+ALTER TABLE `joueur`
+  ADD CONSTRAINT `Joueur_ibfk_1` FOREIGN KEY (`Id_Equipe`) REFERENCES `equipe` (`Id_Equipe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Joueur_ibfk_2` FOREIGN KEY (`Id_Statistique`) REFERENCES `statistiques` (`Id_Statistique`) ON DELETE CASCADE ON UPDATE CASCADE;

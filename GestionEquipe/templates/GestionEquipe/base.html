@@ -1,0 +1,45 @@
+<html>
+<head> {% load staticfiles %}
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<center>
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-inverse p-4">
+        <ul class="inlineMenu">
+            <li class="menu-pre"><a href="{% url "Accueil" %}"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Accueil</a></li>
+            <li class="menu-eq"><a href="{% url "GestionEquipe" %}"><i class="fa fa-futbol-o" aria-hidden="true"></i>
+&nbsp; Mon equipe  </a></li>
+            <!-- <li class ="menutab"> <a href="{% url "classement" %}"><i class="fa fa-trophy" aria-hidden="true"></i>
+&nbsp; Classement</a></li> -->
+
+            <!-- <li class ="menu-class"><a href="#"><i class="fa fa-bar-chart" aria-hidden="true"></i>
+ &nbsp; Resultat </a></li>
+            <li class ="menucal"><a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
+ &nbsp; Calendrier</a></li>
+        </ul> -->
+    </div>
+  </div>
+  <nav class="navbar navbar-inverse bg-inverse">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+</div></center>
+<br>
+{% block content %}
+
+{% endblock %}
+<!--- n'oublier pas de le fermer toujours par un endblock   -->
+
+
+<footer></footer>
+</body>
+</html>

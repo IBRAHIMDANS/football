@@ -1,0 +1,327 @@
+
+{% extends "base.html" %}
+<!--- pour ajouter des liens il faut les mettres dans base.html qui represente le head  et tout les contenu doivent etre dans block content qui est le body   -->
+
+
+{% block content %}
+
+{{user.id}}
+<h1>Gestion d'équipe</h1>
+<br> </br>
+<div id="corps">
+<section id="composition">
+<table class="table table-hover table-dark">
+<h2> Titulaires </h2>
+    <tr>
+        <th> Poste </th>
+        <th colspan="2">Nom</th>
+    </tr>
+{% for joueur in joueurs %}
+    {% if joueur.j_status == "Titulaire"%}
+    <tr num="{{ joueur.id_joueur }}">
+        <td> {{ joueur.j_poste }} </td>
+        <td> {{ joueur.j_nom }} </td>
+
+        <!--- <td> {{ joueur.status }} </td> -->
+
+        <td><button id="myInput" type="button" data-toggle="modal" data-target="#myModal" onclick="remplirModifier({{ joueur.id_joueur }})"><i class="fa fa-pencil-square-o" aria-hidden="true" >
+        <td><button type="button" value="Supprimer" id="Supprimer" onclick="Supprimer({{ joueur.id_joueur }})"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+        </i></button></td>
+        <td><button id="visualisation" onclick="infoJoueur({{ joueur.id_joueur }})"  type="button" data-toggle="modal" data-target="#modalVisu"><i class="fa fa-address-card" aria-hidden="true"></i>
+</button></td>
+    </tr>
+    {% endif %}
+{% empty %}
+
+    <p class="empty">Pas de commentaires pour le moment </p>
+
+{% endfor %}
+
+</table>
+</section>
+
+<section id="composition">
+<table class="table table-hover table-dark">
+<h2> Remplaçants </h2>
+    <tr>
+        <th> Poste </th>
+        <th colspan="2">Nom</th>
+    </tr>
+{% for joueur in joueurs %}
+    {% if joueur.j_status == "Remplaçant" %}
+    <tr num="{{ joueur.id_joueur }}">
+        <td> {{ joueur.j_poste }} </td>
+        <td> {{ joueur.j_nom }} </td>
+        <!--- <td> {{ joueur.status }} </td> -->
+
+        <td><button type="button" value="Supprimer" id="Supprimer" onclick="Supprimer({{ joueur.id_joueur }})"><i class="fa fa-trash" aria-hidden="true" ></i></button></td>
+        <td><button id="myInput" type="button" data-toggle="modal" data-target="#myModal" onclick="remplirModifier({{ joueur.id_joueur }})"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+        <td><button id="visualisation" onclick="infoJoueur({{ joueur.id_joueur }})" type="button" data-toggle="modal" data-target="#modalVisu"><i class="fa fa-address-card" aria-hidden="true"></i>
+</button></td>
+    </tr>
+    {% endif %}
+{% empty %}
+
+    <p class="empty">Pas de commentaires pour le moment </p>
+
+{% endfor %}
+</table>
+</section>
+
+<section id="composition">
+<table class="table table-hover table-dark">
+<h2> Réservistes </h2>
+    <tr>
+        <th> Poste </th>
+        <th colspan="2">Nom</th>
+    </tr>
+{% for joueur in joueurs %}
+    {% if joueur.j_status == "Réserviste" %}
+    <tr num="{{ joueur.id_joueur }}">
+        <td> {{ joueur.j_poste }} </td>
+        <td> {{ joueur.j_nom }} </td>
+        <!--- <td> {{ joueur.status }} </td> -->
+
+        <td><button type="button" value="Supprimer" id="Supprimer" onclick="Supprimer({{ joueur.id_joueur }})"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+        <td><button id="myInput" type="button" data-toggle="modal" data-target="#myModal" onclick="remplirModifier({{ joueur.id_joueur }})"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></td>
+        <td><button id="visualisation" onclick="infoJoueur({{ joueur.id_joueur }})" type="button" data-toggle="modal" data-target="#modalVisu"><i class="fa fa-address-card" aria-hidden="true"></i>
+</button></td>
+    </tr>
+    {% endif %}
+{% empty %}
+
+    <p class="empty">Pas de commentaires pour le moment </p>
+
+{% endfor %}
+</table>
+</section>
+
+
+<i class="fa fa-user-plus fa-6" id="add" aria-hidden="true" data-toggle="modal" data-target="#myModalAjouter" ></i>
+</div>
+
+<!-- Modal Modifier-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modifier le joueur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <form id="modifierForm" action="{% url "modifier" %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id_joueur" id="id_id_joueur">
+            {{ formJoueur.as_p }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <input class="btn btn-primary" type="submit" value="Enregister" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ajouter-->
+<div class="modal fade" id="myModalAjouter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Ajouter un joueur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+           <form id="ajouterForm" action="{% url "ajouter" %}" method="POST">
+            {% csrf_token %}
+            <!--<input type="hidden" name="id_joueur" id="id_id_joueur">-->
+            {{ formAjouter.as_p }}
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <input class="btn btn-primary" type="submit" value="Enregister" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Visu-->
+<div class="modal fade" id="modalVisu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Infos joueur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="blockInfo">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  $('#myModal').on('shown.bs.modal', function () {
+
+  $('#myInput').focus()
+})
+  // using jQuery
+/*function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}*
+
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+/*$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});*/
+
+//$.ajaxSetup({   headers: {  "X-CSRFToken": csrftoken  }  });
+
+$.ajaxSetup({
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         }
+     }
+});
+
+//var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+  //$('[num="1"]').attr("color","red");
+  function Supprimer(id){  // CLICK SUPPRIMER
+
+    $.ajax({  // AJAX SUPPRESSION
+                type: 'POST',
+                url: 'ajax/supprimer/',
+                data: { 'id' : id},
+                dataType: 'json',
+                encode: true
+            }).done(function(data) {
+               $('[num="'+id+'"]').remove();
+
+            });
+                        };
+
+function infoJoueur(id){  // CLICK SUPPRIMER
+
+  $.ajax({  // AJAX SUPPRESSION
+              type: 'POST',
+              url: 'ajax/infoJoueur/',
+              data: { 'id' : id},
+              dataType: 'json',
+              encode: true
+          }).done(function(data) {
+            $("#blockInfo").empty()
+            $("#blockInfo").append("<p>Nom :"+data.nom+"</p>")
+            $("#blockInfo").append("<p>Prénom :"+data.prenom+"</p>")
+            $("#blockInfo").append("<p>Age :"+data.age+"</p>")
+            $("#blockInfo").append("<p>Taille :"+data.taille+"</p>")
+            $("#blockInfo").append("<p>Poste :"+data.poste+"</p>")
+            $("#blockInfo").append("<p>Position :"+data.position+"</p>")
+
+          });
+                      };
+
+function remplirModifier(id){  //
+    $.ajax({  //
+                type: 'POST',
+                url: 'ajax/modifierRemplir/',
+                data: { 'id' : id},
+                dataType: 'json',
+                encode: true
+            }).done(function(data) {
+                console.log(data)
+               //$('#modifierForm').();
+               $('#id_id_joueur').val(data.id);
+               $('#id_j_nom').val(data.nom);
+               $('#id_j_prenom').val(data.prenom);
+               $('#id_j_age').val(data.age);
+               $('#id_j_taille').val(data.taille);
+               $('#id_j_poste').val(data.poste);
+               $('#id_j_status').val(data.status);
+               $('#id_j_disponible').val(data.disponible);
+               $('#id_j_position').val(data.position);
+               //$('#id_id_equipe option[value="1"]').prop('selected', true);
+            });
+                        };
+
+
+$("#modifForm").submit(function( event ) {
+    var donnees=$("#modifForm").serialize();
+    console.log(donnees)
+  $.ajax({  // AJAX SUPPRESSION
+                type: 'POST',
+                url: 'ajax/modifier/',
+                data: donnees,
+                dataType: 'json',
+                encode: true
+            }).done(function(data) {
+                console.log(data)
+               $('#id_id_joueur').val(data.id);
+               $('#id_nom').val(data.nom);
+               $('#id_prenom').val(data.prenom);
+               $('#id_age').val(data.age);
+               $('#id_taille').val(data.taille);
+               $('#id_poste').val(data.poste);
+               $('#id_disponible').val(data.disponible);
+
+            });
+
+  event.preventDefault();
+});
+
+</script>
+
+{% endblock %}

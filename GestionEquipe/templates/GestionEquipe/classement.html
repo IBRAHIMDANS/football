@@ -1,0 +1,136 @@
+
+{% extends "base.html" %}
+
+
+
+
+{% block content %}
+
+<h1><center>Classement des equipes  </center></h1>
+
+<h2>Mes joueurs </h2>
+<section id="composition">
+  <br><br>
+
+<p> <h2><em> Formulaire </em> </p></h2>
+<form action="{% url "classement" %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+</form>
+
+<p> <b> Classement Equipe </b> </p>
+<table>
+
+    {% for i in equipes %}
+
+    <tr num="{{ equipe.id_equipe }}">
+        <td> {{ i.nom }} </td>
+    </tr>
+
+     {% endfor %}
+
+</table>
+
+
+<!-- <p> <b> Statistiques Joueur </b> </p>
+
+<table border>
+    {% for j in statistiques %}
+    <tr><th> Temps de jeu </th>
+        <td>{{ j.temps_jeu }}</td></tr>
+    <tr><th> But </th>
+        <td>{{ j.but }}</td></tr>
+    <tr><th> Passe decisive </th>
+        <td>{{ j.passe_decisive }}</td> </tr>
+    <tr><th> Match dispute </th>
+        <td>{{ j.match_dispute }}</td></tr>
+    {% endfor %}
+</table> -->
+<script type="text/javascript">
+    $('#myModal').on('shown.bs.modal', function () {
+
+  $('#myInput').focus()
+})
+    // using jQuery
+/*function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}*
+
+
+var csrftoken = getCookie('csrftoken');
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+/*$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});*/
+
+//$.ajaxSetup({   headers: {  "X-CSRFToken": csrftoken  }  });
+
+$.ajaxSetup({
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         }
+     }
+});
+
+//var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    //$('[num="1"]').attr("color","red");
+    function Supprimer(id){  // CLICK SUPPRIMER
+
+    $.ajax({  // AJAX SUPPRESSION
+                type: 'POST',
+                url: 'ajax/supprimer/',
+                data: { 'id' : id},
+                dataType: 'json',
+                encode: true
+            }).done(function(data) {
+                alert(data.reponse)
+               $('[num="'+id+'"]').remove();
+
+            });
+                        };
+
+</script>
+
+{% endblock %}
+</body>
+<footer> </footer>
+</html>
